@@ -1,2 +1,2 @@
 # SuperPrompt
- Text to Image hughly detailed prompt generator
+ Text to Image highly detailed prompt generator

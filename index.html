@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Description System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="inline-styles.css">
+    <style>
+        /* Intensity selector styling */
+        .intensity-selector {
+            margin-top: 20px;
+            border-top: 1px dotted #dee2e6;
+            padding-top: 15px;
+        }
+
+        .intensity-selector label {
+            display: flex;
+            align-items: center;
+        }
+
+        .intensity-selector select {
+            border-color: #3a6ea5;
+        }
+
+        .intensity-selector .tooltip {
+            display: block;
+            font-size: 0.8rem;
+            color: #6c757d;
+            margin-top: 5px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>Character Description System</h1>
+            <p>Create detailed character descriptions for text-to-image generation</p>
+        </header>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="feature-navigation">
+                    <h2>Features</h2>
+                    <ul id="feature-nav">
+                        <li class="active" data-section="global-params">Global Parameters</li>
+                        <li data-section="face-shape">Face Shape</li>
+                        <li data-section="eyes">Eyes</li>
+                        <li data-section="nose">Nose</li>
+                        <li data-section="lips">Lips</li>
+                        <li data-section="eyebrows">Eyebrows</li>
+                        <li data-section="cheekbones">Cheekbones</li>
+                        <li data-section="jaw-line">Jaw Line</li>
+                        <li data-section="ears">Ears</li>
+                        <li data-section="head-shape">Head Shape</li>
+                        <li data-section="hair">Hair</li>
+                        <li data-section="wardrobe">Wardrobe</li>
+                    </ul>
+                </div>
+
+                <div class="feature-summary">
+                    <h2>Character Summary</h2>
+                    <div id="character-summary">
+                        <p>No features selected yet.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-panels">
+                <!-- Global Parameters -->
+                <div class="feature-panel active" id="global-params">
+                    <h2>Global Parameters</h2>
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender" name="gender">
+                            <option value="">Please select...</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="androgynous">Androgynous</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="age">Age</label>
+                        <select id="age" name="age">
+                            <option value="">Please select...</option>
+                            <option value="child">Child (up to 12)</option>
+                            <option value="teen">Teen (13-19)</option>
+                            <option value="young adult">Young Adult (20-35)</option>
+                            <option value="adult">Adult (36-50)</option>
+                            <option value="senior">Senior (51+)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="build">Build</label>
+                        <!-- Male Build Options -->
+                        <select id="build-male" name="build-male" class="build-select" style="display: none;">
+                            <option value="">Please select...</option>
+                            <option value="athletic">Athletic</option>
+                            <option value="lean">Lean</option>
+                            <option value="muscular">Muscular</option>
+                            <option value="stocky">Stocky</option>
+                            <option value="tall_and_slim">Tall and Slim</option>
+                            <option value="v-shaped">V-Shaped</option>
+                            <option value="rectangle">Rectangle</option>
+                            <option value="hourglass">Hourglass</option>
+                            <option value="heavyset">Heavyset</option>
+                            <option value="endomorph">Endomorph</option>
+                        </select>
+                        
+                        <!-- Female Build Options -->
+                        <select id="build-female" name="build-female" class="build-select" style="display: none;">
+                            <option value="">Please select...</option>
+                            <option value="hourglass">Hourglass</option>
+                            <option value="pear">Pear</option>
+                            <option value="apple">Apple</option>
+                            <option value="rectangle">Rectangle</option>
+                            <option value="inverted_triangle">Inverted Triangle</option>
+                            <option value="athletic">Athletic</option>
+                            <option value="curvy">Curvy</option>
+                            <option value="slender">Slender</option>
+                            <option value="plus_size">Plus Size</option>
+                            <option value="stocky">Stocky</option>
+                        </select>
+                    </div>
+
+                    <button id="save-globals" class="btn">Save & Continue</button>
+                </div>
+
+                <!-- Face Shape -->
+                <div class="feature-panel" id="face-shape">
+                    <h2>Face Shape</h2>
+                    <div class="shape-options">
+                        <div class="shape-option" data-shape="oval">
+                            <div class="shape-preview oval"></div>
+                            <span>Oval</span>
+                        </div>
+                        <div class="shape-option" data-shape="round">
+                            <div class="shape-preview round"></div>
+                            <span>Round</span>
+                        </div>
+                        <div class="shape-option" data-shape="square">
+                            <div class="shape-preview square"></div>
+                            <span>Square</span>
+                        </div>
+                        <div class="shape-option" data-shape="heart">
+                            <div class="shape-preview heart"></div>
+                            <span>Heart</span>
+                        </div>
+                        <div class="shape-option" data-shape="diamond">
+                            <div class="shape-preview diamond"></div>
+                            <span>Diamond</span>
+                        </div>
+                        <div class="shape-option" data-shape="rectangular">
+                            <div class="shape-preview rectangle"></div>
+                            <span>Rectangular</span>
+                        </div>
+                        <div class="shape-option" data-shape="triangle">
+                            <div class="shape-preview triangle-down"></div>
+                            <span>Triangle</span>
+                        </div>
+                        <div class="shape-option" data-shape="inverted_triangle">
+                            <div class="shape-preview triangle-up"></div>
+                            <span>Inverted Triangle</span>
+                        </div>
+                        <div class="shape-option" data-shape="long">
+                            <div class="shape-preview oblong"></div>
+                            <span>Long</span>
+                        </div>
+                        <div class="shape-option" data-shape="baseball">
+                            <div class="shape-preview round"></div>
+                            <span>Baseball</span>
+                        </div>
+                    </div>
+                    <!-- Description container will be inserted here by JavaScript -->
+
+                    <!-- Face Shape Intensity Selector -->
+                    <div class="form-group intensity-selector">
+                        <label for="face-shape-intensity">Intensity</label>
+                        <select id="face-shape-intensity" name="face-shape-intensity">
+                            <option value="moderate" selected>Moderate (Default)</option>
+                            <option value="subtle">Subtle</option>
+                            <option value="pronounced">Pronounced</option>
+                            <option value="extreme">Extreme</option>
+                        </select>
+                        <span class="tooltip">Controls how emphatically this feature appears in the generated image</span>
+                    </div>
+                </div>
+
+                <!-- Eyes -->
+                <div class="feature-panel" id="eyes">
+                    <h2>Eyes</h2>
+                    <div class="form-group">
+                        <label for="eye-shape">Shape</label>
+                        <select id="eye-shape" name="eye-shape">
+                            <option value="">Please select...</option>
+                            <option value="almond">Almond</option>
+                            <option value="round">Round</option>
+                            <option value="hooded">Hooded</option>
+                            <option value="monolid">Monolid</option>
+                            <option value="cat_eyes">Cat Eyes</option>
+                            <option value="slanted">Slanted</option>
+                            <option value="wide-set">Wide-set</option>
+                            <option value="close-set">Close-set</option>
+                        </select>
+                        <!-- Description container will be inserted here by JavaScript -->
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eye-color">Color</label>
+                        <select id="eye-color" name="eye-color">
+                            <option value="">Please select...</option>
+                            <option value="blue">Blue</option>
+                            <option value="green">Green</option>
+                            <option value="brown">Brown</option>
+                            <option value="hazel">Hazel</option>
+                            <option value="gray">Gray</option>
+                            <option value="amber">Amber</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eye-modifier">Modifier</label>
+                        <select id="eye-modifier" name="eye-modifier">
+                            <option value="">None</option>
+                            <option value="upturned">Upturned</option>
+                            <option value="downturned">Downturned</option>
+                        </select>
+                        <!-- Description container will be inserted here by JavaScript -->
+                    </div>
+
+                    <!-- Eyes Intensity Selector -->
+                    <div class="form-group intensity-selector">
+                        <label for="eyes-intensity">Intensity</label>
+                        <select id="eyes-intensity" name="eyes-intensity">
+                            <option value="moderate" selected>Moderate (Default)</option>
+                            <option value="subtle">Subtle</option>
+                            <option value="pronounced">Pronounced</option>
+                            <option value="extreme">Extreme</option>
+                        </select>
+                        <span class="tooltip">Controls how emphatically this feature appears in the generated image</span>
+                    </div>
+                </div>
+
+                <!-- Nose -->
+                <div class="feature-panel" id="nose">
+                    <h2>Nose</h2>
+                    <div class="form-group">
+                        <label for="nose-shape">Shape</label>
+                        <select id="nose-shape" name="nose-shape">
+                            <option value="">Please select...</option>
+                            <option value="straight">Straight</option>
+                            <option value="curved">Curved</option>
+                            <option value="aquiline">Aquiline</option>
+                            <option value="flat">Flat</option>
+                            <option value="nubian">Nubian</option>
+                            <option value="roman">Roman</option>
+                            <option value="button">Button</option>
+                            <option value="wide">Wide</option>
+                            <option value="pointed">Pointed</option>
+                            <option value="snub">Snub</option>
+                        </select>
+                        <!-- Description container will be inserted here by JavaScript -->
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nose-width">Width</label>
+                        <select id="nose-width" name="nose-width">
+                            <option value="">Default</option>
+                            <option value="wide">Wide</option>
+                            <option value="narrow">Narrow</option>
+                        </select>
+                        <!-- Description container will be inserted here by JavaScript -->
+                    </div>
+
+                    <!-- Nose Intensity Selector -->
+                    <div class="form-group intensity-selector">
+                        <label for="nose-intensity">Intensity</label>
+                        <select id="nose-intensity" name="nose-intensity">
+                            <option value="moderate" selected>Moderate (Default)</option>
+                            <option value="subtle">Subtle</option>
+                            <option value="pronounced">Pronounced</option>
+                            <option value="extreme">Extreme</option>
+                        </select>
+                        <span class="tooltip">Controls how emphatically this feature appears in the generated image</span>
+                    </div>
+                </div>
+
+                <!-- Remaining sections follow the same pattern -->
+                <!-- Lips -->
+                <div class="feature-panel" id="lips">
+                    <h2>Lips</h2>
+                    <div class="form-group">
+                        <label for="lips-shape">Shape</label>
+                        <select id="lips-shape" name="lips-shape">
+                            <option value="">Please select...</option>
+                            <option value="full">Full</option>
+                            <option value="thin">Thin</option>
+                            <option value="wide">Wide</option>
+                            <option value="small">Small</option>
+                            <option value="heart-shaped">Heart-shaped</option>
+                            <option value="neutral">Neutral</option>
+                            <option value="pouty">Pouty</option>
+                        </select>
+                        <!-- Description container will be inserted here by JavaScript -->
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lips-fullness">Fullness</label>
+                        <select id="lips-fullness" name="lips-fullness">
+                            <option value="">Default</option>
+                            <option value="upper_prominent">Upper Prominent</option>
+                            <option value="lower_prominent">Lower Prominent</option>
+                            <option value="balanced">Balanced</option>
+                        </select>
+                        <!-- Description container will be inserted here by JavaScript -->
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lips-modifier">Modifier</label>
+                        <select id="lips-modifier" name="lips-modifier">
+                            <option value="">None</option>
+                            <option value="downturned">Downturned</option>
+                            <option value="upturned">Upturned</option>
+                            <option value="wide_and_thin">Wide and Thin</option>
+                        </select>
+                        <!-- Description container will be inserted here by JavaScript -->
+                    </div>
+
+                    <!-- Lips Intensity Selector -->
+                    <div class="form-group intensity-selector">
+                        <label for="lips-intensity">Intensity</label>
+                        <select id="lips-intensity" name="lips-intensity">
+                            <option value="moderate" selected>Moderate (Default)</option>
+                            <option value="subtle">Subtle</option>
+                            <option value="pronounced">Pronounced</option>
+                            <option value="extreme">Extreme</option>
+                        </select>
+                        <span class="tooltip">Controls how emphatically this feature appears in the generated image</span>
+                    </div>
+                </div>
+
+                <!-- Eyebrows, Cheekbones, Jaw Line, Ears and Head Shape sections follow the same pattern -->
+                <!-- Eyebrows -->
+                <div class="feature-panel" id="eyebrows">
+                    <h2>Eyebrows</h2>
+                    <div class="form-group">
+                        <label for="eyebrow-shape">Shape</label>
+                        <select id="eyebrow-shape" name="eyebrow-shape">
+                            <option value="">Please select...</option>
+                            <option value="arched">Arched</option>
+                            <option value="straight">Straight</option>
+                            <option value="softly_arched">Softly Arched</option>
+                            <option value="round">Round</option>
+                            <option value="flat">Flat</option>
+                            <option value="s-shaped">S-shaped</option>
+                            <option value="angled">Angled</option>
+                            <option value="textured">Textured</option>
+                        </select>
+                        <!-- Description container will be inserted here by JavaScript -->
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eyebrow-thickness">Thickness</label>
+                        <select id="eyebrow-thickness" name="eyebrow-thickness">
+                            <option value="">Default</option>
+                            <option value="thin">Thin</option>
+                            <option value="medium">Medium</option>
+                            <option value="thick">Thick</option>
+                            <option value="full">Full</option>
+                        </select>
+                        <!-- Description container will be inserted here by JavaScript -->
+                    </div>
+
+                    <!-- Eyebrows Intensity Selector -->
+                    <div class="form-group intensity-selector">
+                        <label for="eyebrows-intensity">Intensity</label>
+                        <select id="eyebrows-intensity" name="eyebrows-intensity">
+                            <option value="moderate" selected>Moderate (Default)</option>
+                            <option value="subtle">Subtle</option>
+                            <option value="pronounced">Pronounced</option>
+                            <option value="extreme">Extreme</option>
+                        </select>
+                        <span class="tooltip">Controls how emphatically this feature appears in the generated image</span>
+                    </div>
+                </div>
+
+                <!-- Cheekbones -->
+                <div class="feature-panel" id="cheekbones">
+                    <h2>Cheekbones</h2>
+                    <div class="form-group">
+                        <label for="cheekbone-shape">Shape</label>
+                        <select id="cheekbone-shape" name="cheekbone-shape">
+                            <option value="">Please select...</option>
+                            <option value="high">High</option>
+                            <option value="low">Low</option>
+                            <option value="wide">Wide</option>
+                            <option value="narrow">Narrow</option>
+                            <option value="flat">Flat</option>
+                            <option value="angular">Angular</option>
+                            <option value="rounded">Rounded</option>
+                            <option value="asymmetrical">Asymmetrical</option>
+                            <option value="defined">Defined</option>
+                            <option value="soft">Soft</option>
+                        </select>
+                        <!-- Description container will be inserted here by JavaScript -->
+                    </div>
+
+                    <!-- Cheekbones Intensity Selector -->
+                    <div class="form-group intensity-selector">
+                        <label for="cheekbones-intensity">Intensity</label>
+                        <select id="cheekbones-intensity" name="cheekbones-intensity">
+                            <option value="moderate" selected>Moderate (Default)</option>
+                            <option value="subtle">Subtle</option>
+                            <option value="pronounced">Pronounced</option>
+                            <option value="extreme">Extreme</option>
+                        </select>
+                        <span class="tooltip">Controls how emphatically this feature appears in the generated image</span>
+                    </div>
+                </div>
+
+                <!-- Jaw Line -->
+                <div class="feature-panel" id="jaw-line">
+                    <h2>Jaw Line</h2>
+                    <div class="form-group">
+                        <label for="jawline-shape">Shape</label>
+                        <select id="jawline-shape" name="jawline-shape">
+                            <option value="">Please select...</option>
+                            <option value="square">Square</option>
+                            <option value="oval">Oval</option>
+                            <option value="round">Round</option>
+                            <option value="heart">Heart</option>
+                            <option value="mandibular">Mandibular</option>
+                            <option value="pointed">Pointed</option>
+                            <option value="receding">Receding</option>
+                            <option value="wide">Wide</option>
+                            <option value="defined">Defined</option>
+                            <option value="soft">Soft</option>
+                        </select>
+                        <!-- Description container will be inserted here by JavaScript -->
+                    </div>
+
+                    <!-- Jaw Line Intensity Selector -->
+                    <div class="form-group intensity-selector">
+                        <label for="jaw-line-intensity">Intensity</label>
+                        <select id="jaw-line-intensity" name="jaw-line-intensity">
+                            <option value="moderate" selected>Moderate (Default)</option>
+                            <option value="subtle">Subtle</option>
+                            <option value="pronounced">Pronounced</option>
+                            <option value="extreme">Extreme</option>
+                        </select>
+                        <span class="tooltip">Controls how emphatically this feature appears in the generated image</span>
+                    </div>
+                </div>
+
+                <!-- Ears -->
+                <div class="feature-panel" id="ears">
+                    <h2>Ears</h2>
+                    <div class="form-group">
+                        <label for="ear-shape">Shape</label>
+                        <select id="ear-shape" name="ear-shape">
+                            <option value="">Please select...</option>
+                            <option value="standard">Standard</option>
+                            <option value="pointed">Pointed</option>
+                            <option value="round">Round</option>
+                            <option value="protruding">Protruding</option>
+                            <option value="flat">Flat</option>
+                            <option value="lobed">Lobed</option>
+                            <option value="cupped">Cupped</option>
+                            <option value="rimmed">Rimmed</option>
+                            <option value="asymmetrical">Asymmetrical</option>
+                            <option value="curved">Curved</option>
+                        </select>
+                        <!-- Description container will be inserted here by JavaScript -->
+                    </div>
+
+                    <!-- Ears Intensity Selector -->
+                    <div class="form-group intensity-selector">
+                        <label for="ears-intensity">Intensity</label>
+                        <select id="ears-intensity" name="ears-intensity">
+                            <option value="moderate" selected>Moderate (Default)</option>
+                            <option value="subtle">Subtle</option>
+                            <option value="pronounced">Pronounced</option>
+                            <option value="extreme">Extreme</option>
+                        </select>
+                        <span class="tooltip">Controls how emphatically this feature appears in the generated image</span>
+                    </div>
+                </div>
+
+                <!-- Head Shape -->
+                <div class="feature-panel" id="head-shape">
+                    <h2>Head Shape</h2>
+                    <div class="form-group">
+                        <label for="head-shape-type">Shape</label>
+                        <select id="head-shape-type" name="head-shape-type">
+                            <option value="">Please select...</option>
+                            <option value="oval">Oval</option>
+                            <option value="round">Round</option>
+                            <option value="square">Square</option>
+                            <option value="rectangular">Rectangular</option>
+                            <option value="heart">Heart</option>
+                            <option value="diamond">Diamond</option>
+                            <option value="triangle">Triangle</option>
+                            <option value="inverted_triangle">Inverted Triangle</option>
+                            <option value="long">Long</option>
+                            <option value="baseball">Baseball</option>
+                        </select>
+                        <!-- Description container will be inserted here by JavaScript -->
+                    </div>
+
+                    <!-- Head Shape Intensity Selector -->
+                    <div class="form-group intensity-selector">
+                        <label for="head-shape-intensity">Intensity</label>
+                        <select id="head-shape-intensity" name="head-shape-intensity">
+                            <option value="moderate" selected>Moderate (Default)</option>
+                            <option value="subtle">Subtle</option>
+                            <option value="pronounced">Pronounced</option>
+                            <option value="extreme">Extreme</option>
+                        </select>
+                        <span class="tooltip">Controls how emphatically this feature appears in the generated image</span>
+                    </div>
+                </div>
+
+                <!-- Hair -->
+                <div class="feature-panel" id="hair">
+                    <h2>Hair</h2>
+                    <div class="form-group">
+                        <label for="hair-length">Length</label>
+                        <select id="hair-length" name="hair-length">
+                            <option value="">Please select...</option>
+                            <option value="short">Short</option>
+                            <option value="medium">Medium</option>
+                            <option value="long">Long</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="hair-texture">Texture</label>
+                        <select id="hair-texture" name="hair-texture">
+                            <option value="">Please select...</option>
+                            <option value="straight">Straight</option>
+                            <option value="wavy">Wavy</option>
+                            <option value="curly">Curly</option>
+                            <option value="coily">Coily</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="hair-color">Color</label>
+                        <select id="hair-color" name="hair-color">
+                            <option value="">Please select...</option>
+                            <option value="black">Black</option>
+                            <option value="brown">Brown</option>
+                            <option value="blonde">Blonde</option>
+                            <option value="red">Red</option>
+                            <option value="gray">Gray</option>
+                            <option value="white">White</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="hair-style">Style</label>
+                        <select id="hair-style" name="hair-style">
+                            <option value="">Please select...</option>
+                            <option value="with bangs">With Bangs</option>
+                            <option value="with side part">With Side Part</option>
+                            <option value="with center part">With Center Part</option>
+                            <option value="slicked back">Slicked Back</option>
+                            <option value="with layers">With Layers</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Wardrobe -->
+                <div class="feature-panel" id="wardrobe">
+                    <h2>Wardrobe</h2>
+                    <div class="form-group">
+                        <label for="wardrobe-item">Item</label>
+                        <select id="wardrobe-item" name="wardrobe-item">
+                            <option value="">Please select...</option>
+                            <option value="suit_jacket" class="male-item">Suit Jacket</option>
+                            <option value="dress_shirt" class="male-item">Dress Shirt</option>
+                            <option value="crew_neck" class="all-gender">Crew Neck</option>
+                            <option value="v_neck" class="all-gender">V-Neck</option>
+                            <option value="blouse" class="female-item">Blouse</option>
+                            <option value="scoop_neck" class="female-item">Scoop Neck</option>
+                            <option value="collared_shirt" class="all-gender">Collared Shirt</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="wardrobe-fit">Fit</label>
+                        <select id="wardrobe-fit" name="wardrobe-fit">
+                            <option value="">Please select...</option>
+                            <option value="slim">Slim</option>
+                            <option value="regular">Regular</option>
+                            <option value="loose">Loose</option>
+                            <option value="fitted">Fitted</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="wardrobe-fabric">Fabric</label>
+                        <select id="wardrobe-fabric" name="wardrobe-fabric">
+                            <option value="">Please select...</option>
+                            <option value="cotton">Cotton</option>
+                            <option value="wool">Wool</option>
+                            <option value="silk">Silk</option>
+                            <option value="linen">Linen</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="wardrobe-color">Color</label>
+                        <select id="wardrobe-color" name="wardrobe-color">
+                            <option value="">Please select...</option>
+                            <option value="black">Black</option>
+                            <option value="white">White</option>
+                            <option value="navy">Navy</option>
+                            <option value="gray">Gray</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="output-section">
+            <h2>Generated T2I Prompt</h2>
+            <div class="compatibility-warnings" id="compatibility-warnings">
+                <!-- Warnings will appear here -->
+            </div>
+            <div class="prompt-output">
+                <pre id="prompt-text"></pre>
+            </div>
+            <div class="action-buttons">
+                <button id="copy-prompt" class="btn">Copy Prompt</button>
+                <button id="clear-all" class="btn btn-warning">Clear All</button>
+                <button id="generate-image" class="btn btn-primary">Generate Image</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="feature-descriptions.js"></script>
+    <script src="inline-description.js"></script>
+    <script src="character-system.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
