@@ -1,3 +1,4 @@
+
 const eyebrowsDescriptions = {
     arched: {
         primaryDescription: "High arch that creates a dramatic curve.",
@@ -160,5 +161,4 @@ const eyebrowsDescriptions = {
         ethnicExample: "Found across various ethnic backgrounds"
     }
 };
-
 module.exports = eyebrowsDescriptions;

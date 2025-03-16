@@ -1,3 +1,5 @@
+
+// Removed duplicate declaration
 const noseDescriptions = {
     straight: {
         primaryDescription: "Smooth, even profile with no significant curves or bumps.",
@@ -200,5 +202,4 @@ const noseDescriptions = {
         ethnicExample: "Prevalent in some Asian and Eastern European populations"
     }
 };
-
 module.exports = noseDescriptions;

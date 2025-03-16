@@ -1,3 +1,4 @@
+
 const faceShapeDescriptions = {
     oval: {
         primaryDescription: "A balanced, symmetrical shape slightly longer than it is wide.",
@@ -200,5 +201,4 @@ const faceShapeDescriptions = {
         ethnicExample: "Found in some European populations"
     }
 };
-
 module.exports = faceShapeDescriptions;

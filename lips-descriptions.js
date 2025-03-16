@@ -1,3 +1,4 @@
+
 const lipsDescriptions = {
     full: {
         primaryDescription: "Naturally plump and well-defined lips with substantial volume.",
@@ -140,5 +141,4 @@ const lipsDescriptions = {
         ethnicExample: "Found across various ethnic backgrounds"
     }
 };
-
 module.exports = lipsDescriptions;
