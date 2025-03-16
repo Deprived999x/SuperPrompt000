@@ -1,9 +1,11 @@
+import featureDescriptions from './feature-descriptions.js';
+
 // Inline Description handler code
 // This provides functions to display feature descriptions inline beneath form fields
 
 document.addEventListener('DOMContentLoaded', function() {
     // Ensure feature descriptions are loaded before setting up event listeners
-    if (typeof featureDescriptions === 'undefined') {
+    if (!featureDescriptions) {
         console.error('Feature descriptions are not loaded. Please check feature-descriptions.js');
         return;
     }
@@ -30,6 +32,9 @@ function addDescriptionContainers() {
         
         // Insert after the select element
         select.parentNode.insertBefore(descContainer, select.nextSibling);
+        
+        // Debug log
+        console.log(`Description container added for select: ${select.id}`);
     });
 }
 
@@ -52,6 +57,9 @@ function setupDescriptionListeners() {
             if (selectedValue) {
                 const featureType = getFeatureTypeFromSelectId(this.id);
                 showInlineDescription(descContainer, featureType, selectedValue);
+                
+                // Debug log
+                console.log(`Description shown for select: ${this.id}, value: ${selectedValue}`);
             }
         });
     });
