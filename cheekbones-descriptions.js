@@ -202,3 +202,4 @@ const cheekbonesDescriptions = {
 };
 
 module.exports = cheekbonesDescriptions;
+export default cheekbonesDescriptions;

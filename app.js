@@ -1,5 +1,8 @@
 // Main application script for Character Description System
 
+// Import or define CharacterDescriptionSystem
+import CharacterDescriptionSystem from './CharacterDescriptionSystem.js'; // Adjust the path as necessary
+
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize the system
     const characterSystem = new CharacterDescriptionSystem();
