@@ -1,7 +1,9 @@
 // Main application script for Character Description System
 
 // Import or define CharacterDescriptionSystem
-import CharacterDescriptionSystem from './CharacterDescriptionSystem.js'; // Adjust the path as necessary
+import CharacterDescriptionSystem from './path/to/character-system.js'; // Adjust the path as necessary
+
+console.log('Script loaded successfully'); // Add this line to verify the script is loaded
 
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize the system
@@ -18,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const clearAllBtn = document.getElementById('clear-all');
     const generateImageBtn = document.getElementById('generate-image');
     const saveGlobalsBtn = document.getElementById('save-globals');
+    const reloadBtn = document.getElementById('reload-page');
 
     // Global parameters
     const genderSelect = document.getElementById('gender');
@@ -479,6 +482,11 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             alert('Please complete required parameters before generating an image');
         }
+    });
+
+    // Reload the page when the button is clicked
+    reloadBtn.addEventListener('click', function() {
+        location.reload();
     });
 
     // Helper function to navigate to a section
